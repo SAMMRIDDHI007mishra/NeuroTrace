@@ -5,7 +5,7 @@
 
 [![Python Version](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.14-blue.svg?style=for-the-badge&logo=python)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
-[![CI Build](https://img.shields.io/badge/CI%20Build-Passing-emerald.svg?style=for-the-badge&logo=githubactions)](https://github.com)
+[![CI](https://github.com/SAMRIDDHI007mishra/NeuroTrace/actions/workflows/ci.yml/badge.svg)](https://github.com/SAMRIDDHI007mishra/NeuroTrace/actions/workflows/ci.yml)
 [![Test Suite](https://img.shields.io/badge/Tests-14%2F14%20Passed-brightgreen.svg?style=for-the-badge&logo=pytest)](tests/)
 [![Clinical Datasets](https://img.shields.io/badge/Datasets-UCI%20ML%20%26%20OASIS-purple.svg?style=for-the-badge)](data/)
 
