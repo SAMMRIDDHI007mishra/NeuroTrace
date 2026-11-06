@@ -35,6 +35,7 @@ jobs:
       run: |
         python src/data/download_datasets.py
 
-    - name: Run Test Suite
+    - name: Run test suite
       run: |
-        python -m pytest tests/ -v
+          export PYTHONPATH=$PYTHONPATH:$(pwd)
+          python -m pytest tests/ -v

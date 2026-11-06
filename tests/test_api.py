@@ -6,8 +6,8 @@ import pytest
 import json
 from pathlib import Path
 
-from NeuroTrace.src.web.app import app
-from NeuroTrace.src.config import DATA_DIR
+from src.web.app import app
+from src.config import DATA_DIR
 
 @pytest.fixture
 def client():

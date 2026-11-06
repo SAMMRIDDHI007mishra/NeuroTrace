@@ -8,7 +8,7 @@ import numpy as np
 import pandas as pd
 from pathlib import Path
 
-from NeuroTrace.src.config import (
+from src.config import (
     PARKINSONS_MODEL_PATH,
     PARKINSONS_SCALER_PATH,
     ALZHEIMERS_MODEL_PATH,
@@ -16,7 +16,7 @@ from NeuroTrace.src.config import (
     PARKINSONS_ALL_FEATURES,
     ALZHEIMERS_ALL_FEATURES
 )
-from NeuroTrace.src.models.evaluate import compute_clinical_metrics
+from src.models.evaluate import compute_clinical_metrics
 
 def test_model_files_exist():
     """Verify serialized ensemble models and scalers exist on disk."""
