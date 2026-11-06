@@ -28,6 +28,8 @@ MANIFEST
 
 # Virtual Environments
 .env
+.env.*
+!.env.example
 .venv
 env/
 venv/
@@ -51,3 +53,23 @@ htmlcov/
 
 # Logs
 *.log
+
+# OS metadata
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Trained model artifacts (keep directory, ignore contents)
+saved_models/*
+!saved_models/.gitkeep
+
+# Dataset artifacts (keep directories, ignore contents)
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+
+# Dataset archives
+*.zip
+*.tar.gz
+*.7z
