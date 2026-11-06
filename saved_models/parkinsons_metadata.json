@@ -1,0 +1,122 @@
+{
+    "disease": "Parkinson's Disease",
+    "dataset_source": "UCI Machine Learning Repository (Little et al., 2007)",
+    "features": [
+        "MDVP:Fo(Hz)",
+        "MDVP:Fhi(Hz)",
+        "MDVP:Flo(Hz)",
+        "MDVP:Jitter(%)",
+        "MDVP:Jitter(Abs)",
+        "MDVP:RAP",
+        "MDVP:PPQ",
+        "Jitter:DDP",
+        "MDVP:Shimmer",
+        "MDVP:Shimmer(dB)",
+        "Shimmer:APQ3",
+        "Shimmer:APQ5",
+        "MDVP:APQ",
+        "Shimmer:DDA",
+        "NHR",
+        "HNR",
+        "RPDE",
+        "DFA",
+        "spread1",
+        "spread2",
+        "D2",
+        "PPE"
+    ],
+    "test_metrics": {
+        "accuracy": 0.9231,
+        "balanced_accuracy": 0.8828,
+        "sensitivity_recall": 0.9655,
+        "specificity": 0.8,
+        "precision_ppv": 0.9333,
+        "npv": 0.8889,
+        "f1_score": 0.9492,
+        "roc_auc": 0.9759,
+        "pr_auc": 0.9916,
+        "brier_score": 0.0644,
+        "confusion_matrix": {
+            "true_negatives": 8,
+            "false_positives": 2,
+            "false_negatives": 1,
+            "true_positives": 28
+        }
+    },
+    "cv_benchmarks": {
+        "Logistic_Regression": {
+            "cv_accuracy_mean": 0.8401,
+            "cv_accuracy_std": 0.0598,
+            "cv_roc_auc_mean": 0.9039,
+            "cv_f1_mean": 0.8997
+        },
+        "Support_Vector_Machine": {
+            "cv_accuracy_mean": 0.8593,
+            "cv_accuracy_std": 0.0424,
+            "cv_roc_auc_mean": 0.8655,
+            "cv_f1_mean": 0.9142
+        },
+        "Random_Forest": {
+            "cv_accuracy_mean": 0.8913,
+            "cv_accuracy_std": 0.0472,
+            "cv_roc_auc_mean": 0.9549,
+            "cv_f1_mean": 0.9298
+        },
+        "Gradient_Boosting": {
+            "cv_accuracy_mean": 0.8784,
+            "cv_accuracy_std": 0.0366,
+            "cv_roc_auc_mean": 0.95,
+            "cv_f1_mean": 0.9217
+        },
+        "Extra_Trees": {
+            "cv_accuracy_mean": 0.8656,
+            "cv_accuracy_std": 0.0422,
+            "cv_roc_auc_mean": 0.9457,
+            "cv_f1_mean": 0.9165
+        }
+    },
+    "top_biomarkers": [
+        {
+            "feature": "PPE",
+            "importance_percentage": 26.49
+        },
+        {
+            "feature": "MDVP:Fo(Hz)",
+            "importance_percentage": 9.48
+        },
+        {
+            "feature": "spread1",
+            "importance_percentage": 8.69
+        },
+        {
+            "feature": "NHR",
+            "importance_percentage": 4.87
+        },
+        {
+            "feature": "MDVP:Flo(Hz)",
+            "importance_percentage": 4.79
+        },
+        {
+            "feature": "MDVP:Fhi(Hz)",
+            "importance_percentage": 4.1
+        },
+        {
+            "feature": "spread2",
+            "importance_percentage": 3.74
+        },
+        {
+            "feature": "D2",
+            "importance_percentage": 3.53
+        },
+        {
+            "feature": "Jitter:DDP",
+            "importance_percentage": 3.49
+        },
+        {
+            "feature": "RPDE",
+            "importance_percentage": 3.44
+        }
+    ],
+    "training_samples": 156,
+    "test_samples": 39
+}

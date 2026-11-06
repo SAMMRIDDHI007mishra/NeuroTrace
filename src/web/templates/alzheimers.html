@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+
+{% block title %}NeuroTrace | Alzheimer's & Dementia Screener{% endblock %}
+
+{% block content %}
+<div style="margin-bottom: 24px;">
+    <a href="/" style="color: var(--text-dim); text-decoration: none; font-size: 0.85rem;">&larr; Back to Platform Overview</a>
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 10px; flex-wrap: wrap; gap: 14px;">
+        <div>
+            <h1 style="font-size: 2.2rem; font-weight: 800; letter-spacing: -0.5px;">
+                Alzheimer's Disease <span style="color: var(--brand-emerald);">Cognitive & MRI Screener</span>
+            </h1>
+            <p style="color: var(--text-muted); font-size: 0.95rem;">
+                Multi-modal assessment integrating Mini-Mental State Examination (MMSE), CDR, and volumetric brain atrophy metrics (OASIS cohort).
+            </p>
+        </div>
+        <!-- Presets -->
+        <div class="presets-bar" style="display: flex; gap: 10px; align-items: center;">
+            <span style="font-size: 0.82rem; color: var(--text-muted); font-weight: 600;">Load Clinical Presets:</span>
+            <button type="button" onclick="loadPreset('alzheimers', 'cognitively_normal')" class="btn btn-outline btn-sm">
+                Cognitively Normal
+            </button>
+            <button type="button" onclick="loadPreset('alzheimers', 'confirmed_dementia')" class="btn btn-emerald btn-sm">
+                Confirmed Dementia
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="grid-2" style="grid-template-columns: 1.5fr 1.1fr; align-items: start;">
+    <!-- Input Form -->
+    <div class="card">
+        <form id="alzheimers-form">
+            <!-- Demographic Section -->
+            <div class="form-section">
+                <div class="section-heading" style="color: #34d399;">1. Patient Demographics</div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Biological Sex</label>
+                        <select name="Gender_Encoded" class="form-select" required>
+                            <option value="1">Male</option>
+                            <option value="0">Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Age (Years)</label>
+                        <input type="number" name="Age" class="form-input" value="75" min="50" max="100" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Education (Years)</label>
+                        <input type="number" name="EDUC" class="form-input" value="14" min="0" max="25" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Socioeconomic Status (1-5)</label>
+                        <select name="SES" class="form-select" required>
+                            <option value="1">1 - Highest Socioeconomic Status</option>
+                            <option value="2" selected>2 - Upper Middle</option>
+                            <option value="3">3 - Middle</option>
+                            <option value="4">4 - Lower Middle</option>
+                            <option value="5">5 - Lowest</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cognitive Examination Section -->
+            <div class="form-section">
+                <div class="section-heading" style="color: #34d399;">2. Standardized Cognitive Examinations</div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Mini-Mental State Exam (MMSE /30)</label>
+                        <input type="number" step="0.1" name="MMSE" class="form-input" value="27.0" min="0" max="30" required>
+                        <span style="font-size: 0.72rem; color: var(--text-dim);">Normal: 24-30 | Impairment: &lt;24</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Clinical Dementia Rating (CDR)</label>
+                        <select name="CDR" class="form-select" required>
+                            <option value="0.0">0.0 - Normal / No Impairment</option>
+                            <option value="0.5">0.5 - Very Mild Impairment</option>
+                            <option value="1.0">1.0 - Mild Dementia</option>
+                            <option value="2.0">2.0 - Moderate Dementia</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Structural MRI Volumetric Markers -->
+            <div class="form-section">
+                <div class="section-heading" style="color: #34d399;">3. Volumetric Structural MRI Biomarkers</div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">eTIV [Total Intracranial Volume cm³]</label>
+                        <input type="number" name="eTIV" class="form-input" value="1500" min="900" max="2300" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">nWBV [Normalized Brain Volume]</label>
+                        <input type="number" step="0.001" name="nWBV" class="form-input" value="0.730" min="0.60" max="0.90" required>
+                        <span style="font-size: 0.72rem; color: var(--text-dim);">Lower nWBV correlates with cortical atrophy</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">ASF [Atlas Scaling Factor]</label>
+                        <input type="number" step="0.001" name="ASF" class="form-input" value="1.17" min="0.8" max="1.8" required>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" id="a-submit-btn" class="btn btn-emerald" style="width: 100%; margin-top: 10px;">
+                Run Cognitive & Volumetric Assessment
+            </button>
+        </form>
+    </div>
+
+    <!-- Diagnostic Results Card -->
+    <div>
+        <div id="a-results" class="results-card" style="display: none;">
+            <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-dim); letter-spacing: 0.5px;">
+                NeuroTrace Diagnostic Inference
+            </div>
+            
+            <div id="a-gauge" class="risk-gauge high">
+                <div id="a-risk-score" class="risk-percentage">--</div>
+                <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Confidence</div>
+            </div>
+
+            <div id="a-status-pill" class="risk-status-pill pill-high">--</div>
+            <h3 id="a-diag-text" style="margin-top: 12px; font-size: 1.15rem;">--</h3>
+
+            <!-- Explainability XAI Section -->
+            <div style="width: 100%; margin-top: 24px; text-align: left;">
+                <h4 style="font-size: 0.95rem; font-weight: 700; color: #34d399; border-bottom: 1px solid var(--border-subtle); padding-bottom: 6px;">
+                    Explainable AI: Key Clinical Drivers
+                </h4>
+                <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 4px;">
+                    Biomarker deviation relative to the non-demented reference cohort:
+                </p>
+                <table class="attribution-table">
+                    <thead>
+                        <tr>
+                            <th>Biomarker</th>
+                            <th>Patient</th>
+                            <th>Pop. Mean</th>
+                            <th>Impact</th>
+                            <th>Category</th>
+                        </tr>
+                    </thead>
+                    <tbody id="a-xai-tbody"></tbody>
+                </table>
+            </div>
+
+            <button onclick="window.print()" class="btn btn-outline btn-sm" style="margin-top: 24px; width: 100%;">
+                🖨️ Print Clinical Diagnostic Summary
+            </button>
+        </div>
+
+        <!-- Initial Placeholder Card -->
+        <div class="card" style="margin-top: 16px; text-align: center; border-style: dashed;">
+            <h4 style="color: var(--text-dim); margin-bottom: 8px;">Awaiting Patient Assessment</h4>
+            <p style="font-size: 0.85rem; color: var(--text-dim);">
+                Select a clinical preset or input patient MMSE and structural MRI volumetric parameters, then click <strong>Run Cognitive & Volumetric Assessment</strong> to evaluate dementia risk.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

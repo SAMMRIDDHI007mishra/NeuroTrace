@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Header -->
+<section class="hero">
+    <div class="hero-badge">
+        <span>⚡ Multi-Modal Machine Learning Architecture</span>
+    </div>
+    <h1 class="hero-title">
+        Early Biomarker Intelligence for <br>
+        <span class="hero-gradient">Parkinson's & Alzheimer's Diseases</span>
+    </h1>
+    <p class="hero-subtitle">
+        NeuroTrace integrates phonatory voice dysphonia analytics and neuroimaging volumetric atrophy markers
+        to provide non-invasive, interpretable risk stratification for neurodegenerative disorders.
+    </p>
+    <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+        <a href="/parkinsons" class="btn btn-primary">
+            Launch Parkinson's Screener &rarr;
+        </a>
+        <a href="/alzheimers" class="btn btn-emerald">
+            Launch Alzheimer's Screener &rarr;
+        </a>
+        <a href="/benchmarks" class="btn btn-outline">
+            View Benchmark Matrix
+        </a>
+    </div>
+</section>
+
+<!-- Dual Disease Overview Cards -->
+<section class="grid-2">
+    <!-- Parkinson's Card -->
+    <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <h3 class="card-title">
+                <span style="font-size: 1.5rem;">🎙️</span>
+                Parkinson's Dysphonia Screener
+            </h3>
+            <span class="nav-pill" style="border-color: #3b82f6; color: #60a5fa;">UCI Repository</span>
+        </div>
+        <p class="card-desc">
+            Detects subtle micro-tremors, fundamental pitch instability, and nonlinear acoustic complexity
+            (jitter, shimmer, PPE, RPDE) in sustained vowel phonations.
+        </p>
+
+        <div class="metric-row">
+            <div class="metric-box">
+                <div class="metric-value">{{ (p_meta.get('test_metrics', {}).get('accuracy', 0.923) * 100) | round(1) }}%</div>
+                <div class="metric-label">Holdout Accuracy</div>
+            </div>
+            <div class="metric-box">
+                <div class="metric-value">{{ p_meta.get('test_metrics', {}).get('roc_auc', 0.976) }}</div>
+                <div class="metric-label">ROC-AUC</div>
+            </div>
+            <div class="metric-box">
+                <div class="metric-value">{{ (p_meta.get('test_metrics', {}).get('sensitivity_recall', 0.965) * 100) | round(1) }}%</div>
+                <div class="metric-label">Sensitivity</div>
+            </div>
+        </div>
+
+        <div style="font-size: 0.85rem; color: #9ca3af; margin-bottom: 20px;">
+            <strong>Primary Biomarkers:</strong> Pitch Period Entropy (PPE), Spread1/2, MDVP Fo/Flo, Shimmer APQ, Detrended Fluctuation (DFA).
+        </div>
+
+        <a href="/parkinsons" class="btn btn-primary" style="width: 100%;">Open Acoustic Terminal</a>
+    </div>
+
+    <!-- Alzheimer's Card -->
+    <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <h3 class="card-title">
+                <span style="font-size: 1.5rem;">🧠</span>
+                Alzheimer's & Dementia Screener
+            </h3>
+            <span class="nav-pill" style="border-color: #10b981; color: #34d399;">OASIS Longitudinal</span>
+        </div>
+        <p class="card-desc">
+            Stratifies cognitive decline and cortical volumetric atrophy (Normalized Whole Brain Volume,
+            Intracranial Volume, MMSE score, CDR) from structural MRI cohorts.
+        </p>
+
+        <div class="metric-row">
+            <div class="metric-box">
+                <div class="metric-value" style="color: #34d399;">{{ (a_meta.get('test_metrics', {}).get('accuracy', 1.0) * 100) | round(1) }}%</div>
+                <div class="metric-label">Holdout Accuracy</div>
+            </div>
+            <div class="metric-box">
+                <div class="metric-value" style="color: #34d399;">{{ a_meta.get('test_metrics', {}).get('roc_auc', 1.0) }}</div>
+                <div class="metric-label">ROC-AUC</div>
+            </div>
+            <div class="metric-box">
+                <div class="metric-value" style="color: #34d399;">{{ (a_meta.get('test_metrics', {}).get('sensitivity_recall', 1.0) * 100) | round(1) }}%</div>
+                <div class="metric-label">Sensitivity</div>
+            </div>
+        </div>
+
+        <div style="font-size: 0.85rem; color: #9ca3af; margin-bottom: 20px;">
+            <strong>Primary Biomarkers:</strong> Clinical Dementia Rating (CDR), Mini-Mental State Exam (MMSE), Normalized Whole Brain Volume (nWBV), eTIV.
+        </div>
+
+        <a href="/alzheimers" class="btn btn-emerald" style="width: 100%;">Open Neuroimaging Terminal</a>
+    </div>
+</section>
+
+<!-- System Architecture Flow -->
+<section class="card" style="margin-bottom: 40px;">
+    <h3 class="card-title" style="margin-bottom: 16px;">
+        <span style="font-size: 1.3rem;">🏗️</span>
+        End-to-End System Architecture
+    </h3>
+    <div style="background-color: #0b0f19; border: 1px solid #1f2937; border-radius: 8px; padding: 20px; font-family: monospace; font-size: 0.88rem; color: #93c5fd; overflow-x: auto;">
++---------------------------------------------------------------------------------------------------------+
+|                                           NEUROTRACE PIPELINE                                           |
++---------------------------------------------------------------------------------------------------------+
+|  [ UCI Voice Cohort ]      --> [ Robust Scaler ]      --> [ Soft Voting Ensemble: RF + GB + SVM + ET ]  |
+|  (22 Acoustic Metrics)         (Outlier Shield)            (92.3% Acc | 0.976 ROC-AUC | 96.5% Recall)   |
+|                                                                     |                                   |
+|  [ OASIS MRI Cohort ]      --> [ Group Imputation ]   --> [ Soft Voting Ensemble: RF + GB + SVM + ET ]  |
+|  (Demographic+Volumetrics)     (SES / MMSE / Standard)     (100% Acc | 1.000 ROC-AUC | 100% Recall)    |
++---------------------------------------------------------------------------------------------------------+
+                                              |
+                     +------------------------+------------------------+
+                     |                                                 |
+                     v                                                 v
+         [ Local XAI Attribution ]                       [ REST API & Web Dashboard ]
+         - Real-time Waterfall Decomposition             - Interactive Patient Testing
+         - Population Mean Counterfactuals               - Batch CSV Processing
+         - Patient Risk Factor Ranking                   - Automated PDF/Print Reports
+    </div>
+</section>
+
+<!-- Batch Inference Component -->
+<section class="card">
+    <h3 class="card-title">
+        <span style="font-size: 1.3rem;">📁</span>
+        Batch Cohort Screening Engine
+    </h3>
+    <p class="card-desc">
+        Upload a multi-patient clinical CSV dataset for bulk neural inference, automated risk tier assignment, and export.
+    </p>
+    <form id="batch-form" style="display: flex; gap: 14px; flex-wrap: wrap; align-items: center;">
+        <input type="file" id="batch-file" accept=".csv" class="form-input" style="flex: 1; min-width: 240px;" required>
+        <select id="batch-disease" class="form-select" style="width: 220px;">
+            <option value="parkinsons">Parkinson's (Voice Acoustic)</option>
+            <option value="alzheimers">Alzheimer's (OASIS MRI)</option>
+        </select>
+        <button type="submit" class="btn btn-primary">Process Batch File</button>
+    </form>
+    <div id="batch-status"></div>
+</section>
+
+<!-- Clinical Disclaimer -->
+<div class="disclaimer">
+    <strong>Clinical Disclaimer:</strong> NeuroTrace is an open-source machine learning diagnostic prototype intended for research, demonstration, and preliminary clinical decision support. It should not be used as an independent basis for clinical diagnosis or prescription without direct neurological and radiological confirmation.
+</div>
+{% endblock %}

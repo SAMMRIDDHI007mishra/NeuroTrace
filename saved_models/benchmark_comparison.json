@@ -1,0 +1,106 @@
+{
+    "parkinsons": {
+        "test_metrics": {
+            "accuracy": 0.9231,
+            "balanced_accuracy": 0.8828,
+            "sensitivity_recall": 0.9655,
+            "specificity": 0.8,
+            "precision_ppv": 0.9333,
+            "npv": 0.8889,
+            "f1_score": 0.9492,
+            "roc_auc": 0.9759,
+            "pr_auc": 0.9916,
+            "brier_score": 0.0644,
+            "confusion_matrix": {
+                "true_negatives": 8,
+                "false_positives": 2,
+                "false_negatives": 1,
+                "true_positives": 28
+            }
+        },
+        "cv_benchmarks": {
+            "Logistic_Regression": {
+                "cv_accuracy_mean": 0.8401,
+                "cv_accuracy_std": 0.0598,
+                "cv_roc_auc_mean": 0.9039,
+                "cv_f1_mean": 0.8997
+            },
+            "Support_Vector_Machine": {
+                "cv_accuracy_mean": 0.8593,
+                "cv_accuracy_std": 0.0424,
+                "cv_roc_auc_mean": 0.8655,
+                "cv_f1_mean": 0.9142
+            },
+            "Random_Forest": {
+                "cv_accuracy_mean": 0.8913,
+                "cv_accuracy_std": 0.0472,
+                "cv_roc_auc_mean": 0.9549,
+                "cv_f1_mean": 0.9298
+            },
+            "Gradient_Boosting": {
+                "cv_accuracy_mean": 0.8784,
+                "cv_accuracy_std": 0.0366,
+                "cv_roc_auc_mean": 0.95,
+                "cv_f1_mean": 0.9217
+            },
+            "Extra_Trees": {
+                "cv_accuracy_mean": 0.8656,
+                "cv_accuracy_std": 0.0422,
+                "cv_roc_auc_mean": 0.9457,
+                "cv_f1_mean": 0.9165
+            }
+        }
+    },
+    "alzheimers": {
+        "test_metrics": {
+            "accuracy": 1.0,
+            "balanced_accuracy": 1.0,
+            "sensitivity_recall": 1.0,
+            "specificity": 1.0,
+            "precision_ppv": 1.0,
+            "npv": 1.0,
+            "f1_score": 1.0,
+            "roc_auc": 1.0,
+            "pr_auc": 1.0,
+            "brier_score": 0.0025,
+            "confusion_matrix": {
+                "true_negatives": 42,
+                "false_positives": 0,
+                "false_negatives": 0,
+                "true_positives": 33
+            }
+        },
+        "cv_benchmarks": {
+            "Logistic_Regression": {
+                "cv_accuracy_mean": 0.9933,
+                "cv_accuracy_std": 0.0133,
+                "cv_roc_auc_mean": 0.9964,
+                "cv_f1_mean": 0.9929
+            },
+            "Support_Vector_Machine": {
+                "cv_accuracy_mean": 0.9933,
+                "cv_accuracy_std": 0.0133,
+                "cv_roc_auc_mean": 0.9993,
+                "cv_f1_mean": 0.9929
+            },
+            "Random_Forest": {
+                "cv_accuracy_mean": 0.9933,
+                "cv_accuracy_std": 0.0133,
+                "cv_roc_auc_mean": 0.9991,
+                "cv_f1_mean": 0.9929
+            },
+            "Gradient_Boosting": {
+                "cv_accuracy_mean": 0.99,
+                "cv_accuracy_std": 0.0133,
+                "cv_roc_auc_mean": 0.9865,
+                "cv_f1_mean": 0.9891
+            },
+            "Extra_Trees": {
+                "cv_accuracy_mean": 0.9933,
+                "cv_accuracy_std": 0.0133,
+                "cv_roc_auc_mean": 0.9964,
+                "cv_f1_mean": 0.9929
+            }
+        }
+    }
+}

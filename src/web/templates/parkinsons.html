@@ -1,0 +1,208 @@
+{% extends "base.html" %}
+
+{% block title %}NeuroTrace | Parkinson's Dysphonia Biomarker Screener{% endblock %}
+
+{% block content %}
+<div style="margin-bottom: 24px;">
+    <a href="/" style="color: var(--text-dim); text-decoration: none; font-size: 0.85rem;">&larr; Back to Platform Overview</a>
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 10px; flex-wrap: wrap; gap: 14px;">
+        <div>
+            <h1 style="font-size: 2.2rem; font-weight: 800; letter-spacing: -0.5px;">
+                Parkinson's Disease <span style="color: var(--brand-blue);">Dysphonia Screener</span>
+            </h1>
+            <p style="color: var(--text-muted); font-size: 0.95rem;">
+                Acoustic voice analysis of sustained vowel phonations (/a/) based on the UCI Machine Learning benchmark dataset.
+            </p>
+        </div>
+        <!-- Sample Presets -->
+        <div class="presets-bar" style="display: flex; gap: 10px; align-items: center;">
+            <span style="font-size: 0.82rem; color: var(--text-muted); font-weight: 600;">Load Clinical Presets:</span>
+            <button type="button" onclick="loadPreset('parkinsons', 'healthy_control')" class="btn btn-outline btn-sm">
+                Healthy Control
+            </button>
+            <button type="button" onclick="loadPreset('parkinsons', 'confirmed_parkinsons')" class="btn btn-primary btn-sm">
+                Confirmed Parkinson's
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="grid-2" style="grid-template-columns: 1.6fr 1.1fr; align-items: start;">
+    <!-- Input Form -->
+    <div class="card">
+        <form id="parkinsons-form">
+            <!-- Frequency Group -->
+            <div class="form-section">
+                <div class="section-heading">1. Fundamental Vocal Frequency Measures (Hz)</div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">MDVP:Fo(Hz) [Average Pitch]</label>
+                        <input type="number" step="0.001" name="MDVP:Fo(Hz)" class="form-input" value="119.992" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">MDVP:Fhi(Hz) [Max Pitch]</label>
+                        <input type="number" step="0.001" name="MDVP:Fhi(Hz)" class="form-input" value="157.302" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">MDVP:Flo(Hz) [Min Pitch]</label>
+                        <input type="number" step="0.001" name="MDVP:Flo(Hz)" class="form-input" value="74.997" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Jitter Group -->
+            <div class="form-section">
+                <div class="section-heading">2. Vocal Period Instability (Jitter Metrics)</div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">MDVP:Jitter(%)</label>
+                        <input type="number" step="0.00001" name="MDVP:Jitter(%)" class="form-input" value="0.00784" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">MDVP:Jitter(Abs)</label>
+                        <input type="number" step="0.000001" name="MDVP:Jitter(Abs)" class="form-input" value="0.00007" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">MDVP:RAP</label>
+                        <input type="number" step="0.00001" name="MDVP:RAP" class="form-input" value="0.00370" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">MDVP:PPQ</label>
+                        <input type="number" step="0.00001" name="MDVP:PPQ" class="form-input" value="0.00554" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Jitter:DDP</label>
+                        <input type="number" step="0.00001" name="Jitter:DDP" class="form-input" value="0.01109" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shimmer Group -->
+            <div class="form-section">
+                <div class="section-heading">3. Amplitude & Intensity Variation (Shimmer Metrics)</div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">MDVP:Shimmer</label>
+                        <input type="number" step="0.0001" name="MDVP:Shimmer" class="form-input" value="0.04374" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">MDVP:Shimmer(dB)</label>
+                        <input type="number" step="0.001" name="MDVP:Shimmer(dB)" class="form-input" value="0.426" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Shimmer:APQ3</label>
+                        <input type="number" step="0.0001" name="Shimmer:APQ3" class="form-input" value="0.02182" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Shimmer:APQ5</label>
+                        <input type="number" step="0.0001" name="Shimmer:APQ5" class="form-input" value="0.03130" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">MDVP:APQ</label>
+                        <input type="number" step="0.0001" name="MDVP:APQ" class="form-input" value="0.02971" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Shimmer:DDA</label>
+                        <input type="number" step="0.0001" name="Shimmer:DDA" class="form-input" value="0.06545" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Noise & Non-linear Dynamics -->
+            <div class="form-section">
+                <div class="section-heading">4. Noise Ratios & Non-Linear Complexity</div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">NHR [Noise-to-Harmonics]</label>
+                        <input type="number" step="0.0001" name="NHR" class="form-input" value="0.02211" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">HNR [Harmonics-to-Noise dB]</label>
+                        <input type="number" step="0.01" name="HNR" class="form-input" value="21.033" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">RPDE [Recurrence Entropy]</label>
+                        <input type="number" step="0.0001" name="RPDE" class="form-input" value="0.414783" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">DFA [Fractal Scaling]</label>
+                        <input type="number" step="0.0001" name="DFA" class="form-input" value="0.815285" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">spread1 [Non-linear spread 1]</label>
+                        <input type="number" step="0.0001" name="spread1" class="form-input" value="-4.813031" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">spread2 [Non-linear spread 2]</label>
+                        <input type="number" step="0.0001" name="spread2" class="form-input" value="0.266482" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">D2 [Correlation Dimension]</label>
+                        <input type="number" step="0.0001" name="D2" class="form-input" value="2.301442" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">PPE [Pitch Period Entropy]</label>
+                        <input type="number" step="0.0001" name="PPE" class="form-input" value="0.284654" required>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" id="p-submit-btn" class="btn btn-primary" style="width: 100%; margin-top: 10px;">
+                Run Dysphonia Biomarker Assessment
+            </button>
+        </form>
+    </div>
+
+    <!-- Diagnostic Results Card -->
+    <div>
+        <div id="p-results" class="results-card" style="display: none;">
+            <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-dim); letter-spacing: 0.5px;">
+                NeuroTrace Diagnostic Inference
+            </div>
+            
+            <!-- Dynamic Risk Gauge -->
+            <div id="p-gauge" class="risk-gauge high">
+                <div id="p-risk-score" class="risk-percentage">--</div>
+                <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Confidence</div>
+            </div>
+
+            <div id="p-status-pill" class="risk-status-pill pill-high">--</div>
+            <h3 id="p-diag-text" style="margin-top: 12px; font-size: 1.15rem;">--</h3>
+
+            <!-- Explainability XAI Section -->
+            <div style="width: 100%; margin-top: 24px; text-align: left;">
+                <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--brand-cyan); border-bottom: 1px solid var(--border-subtle); padding-bottom: 6px;">
+                    Explainable AI: Key Contributing Biomarkers
+                </h4>
+                <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 4px;">
+                    Marginal attribution score relative to the healthy reference population:
+                </p>
+                <table class="attribution-table">
+                    <thead>
+                        <tr>
+                            <th>Biomarker</th>
+                            <th>Patient</th>
+                            <th>Pop. Mean</th>
+                            <th>Impact</th>
+                            <th>Category</th>
+                        </tr>
+                    </thead>
+                    <tbody id="p-xai-tbody"></tbody>
+                </table>
+            </div>
+
+            <button onclick="window.print()" class="btn btn-outline btn-sm" style="margin-top: 24px; width: 100%;">
+                🖨️ Print Clinical Diagnostic Summary
+            </button>
+        </div>
+
+        <!-- Initial Placeholder Card -->
+        <div class="card" style="margin-top: 16px; text-align: center; border-style: dashed;">
+            <h4 style="color: var(--text-dim); margin-bottom: 8px;">Awaiting Input Payload</h4>
+            <p style="font-size: 0.85rem; color: var(--text-dim);">
+                Select a clinical preset above or input patient voice biomarkers, then click <strong>Run Dysphonia Biomarker Assessment</strong> to generate the neural risk profile.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
